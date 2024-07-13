@@ -1,0 +1,5 @@
+# Ignore the following files and directories
+
+#nvim specific
+packer_compiled.lua
+

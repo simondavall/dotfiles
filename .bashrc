@@ -130,3 +130,8 @@ eval "$(oh-my-posh init bash --config ~/.config/ohmyposh/multiverse-neon.omp.jso
 
 cd Documents/Projects/C/Socrates-C/encrypt
 
+eval "$(zoxide init bash)"
+alias cd=z
+alias cdi=zi
+alias cdh='zoxide query -l -s | less'
+

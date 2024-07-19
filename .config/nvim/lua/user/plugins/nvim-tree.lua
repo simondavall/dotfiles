@@ -8,7 +8,25 @@ return {
     vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
 
+    local function custom_on_attach(bufnr)
+      local api = require "nvim-tree.api"
+
+      local function opts(desc)
+        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+      end
+
+      -- default mappings
+      api.config.mappings.default_on_attach(bufnr)
+
+      -- custom mappings
+      
+      -- use the spacebar to toggle folders open/closed and open files
+      vim.keymap.set('n', ' ', api.node.open.edit,        opts('Open'))
+
+    end
+
     nvimtree.setup({
+      on_attach = custom_on_attach,
       view = {
         width = 35,
         relativenumber = true,
@@ -27,9 +45,8 @@ return {
           },
         },
       },
-      -- disable window_picker for
-      -- explorer to work well with
-      -- window splits
+      -- disable window_picker for explorer
+      -- to work well with window splits
       actions = {
         open_file = {
           window_picker = {
@@ -45,7 +62,6 @@ return {
       },
     })
 
-    --TODO change the leader key here so that space can be used to toggle folders and open files
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
 

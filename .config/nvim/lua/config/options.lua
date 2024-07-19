@@ -46,7 +46,6 @@ vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
 -- disable some default providers
-for _, provider in ipairs { "node", "perl", "python3", "ruby" } do
+for _, provider in ipairs { "perl", "ruby" } do
   vim.g["loaded_" .. provider .. "_provider"] = 0
 end
-

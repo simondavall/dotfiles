@@ -45,6 +45,7 @@ return {
       },
     })
 
+    --TODO change the leader key here so that space can be used to toggle folders and open files
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
 

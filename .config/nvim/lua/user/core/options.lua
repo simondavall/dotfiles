@@ -45,7 +45,7 @@ opt.swapfile = false
 
 -- misc
 opt.backup = false -- won't create a .bak file when saving a changed file
-opt.timeoutlen = 300 -- time to wait for a mapped sequence to complete (ms)
+opt.timeoutlen = 300 -- time to wait for a mapped sequence to complete (ms) E.g when pressing <leader>sv
 opt.scrolloff = 8 -- number of lines always visible above and below when scrolling
 opt.sidescrolloff = 8 -- number of columns always visible when scrolling
 

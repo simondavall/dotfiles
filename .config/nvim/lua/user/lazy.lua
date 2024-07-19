@@ -11,8 +11,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("user.plugins", {
-    -- Configure any other settings here. See the documentation for more details.
+require("lazy").setup({
+  { import = "user.plugins" },
+  { import = "user.plugins.lsp" }
+},
+{
+  -- Configure any other settings here. See the documentation for more details.
   rocks = { 
     enabled = false 
   },

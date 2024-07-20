@@ -22,6 +22,7 @@ black = "#111111"
 [[blocks]]
 alignment = "left"
 type = "prompt"
+newline = true
 
   [[blocks.segments]]
   background = "p:evening_blue"
@@ -67,26 +68,25 @@ alignment = "right"
 type = "prompt"
 
   [[blocks.segments]]
-  foreground = "p:node_green"
+  foreground = "p:orange"
   background = "transparent"
   style = "plain"
-  template = "{{.FormattedMs}}"
+  template = "{{.FormattedMs}}<p:white> · </>"
   type = "executiontime"
 
     [blocks.segments.properties]
     style = "austin"
-    threshold = 0
+    threshold = 500
 
   [[blocks.segments]]
   foreground = "p:node_green"
   background = "transparent"
   style = "plain"
-  template = "<p:white> · </>{{.CurrentDate | date .Format}}"
+  template = "{{.CurrentDate | date .Format}}"
   type = "time"
 
     [blocks.segments.properties]
     time_format = "15:04:05 | Monday"
-
 
 [[blocks]]
 alignment = "left"

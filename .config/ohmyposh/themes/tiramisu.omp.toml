@@ -65,17 +65,6 @@ alignment = "right"
 type = "prompt"
 
   [[blocks.segments]]
-  foreground = "p:orange"
-  background = "transparent"
-  style = "plain"
-  template = "{{.FormattedMs}}<p:white> · </>"
-  type = "executiontime"
-
-    [blocks.segments.properties]
-    style = "austin"
-    threshold = 500
-
-  [[blocks.segments]]
   foreground = "p:node_green"
   background = "transparent"
   style = "plain"

@@ -24,6 +24,8 @@ opt.cursorline = true -- highlight the current cursor line
 
 -- appearance
 
+opt.showmode = false -- don't show mode, this is done nicely by lualine
+
 -- turn on termguicolors for better colorschemes to work
 -- (have to use a true color terminal)
 opt.termguicolors = true

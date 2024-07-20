@@ -16,6 +16,17 @@ return {
       todo_comments.jump_prev()
     end, { desc = "Previous todo comment" })
 
-    todo_comments.setup()
+    todo_comments.setup({
+      keywords = {
+        FIX = {	alt = { "fix", "bug", "issue", "FIXME", "BUG", "FIXIT", "ISSUE" } },
+        -- todo: sdv Find some improved icons for this list
+        TODO = { alt = { "todo", "Todo" } },
+				HACK = { alt = { "hack", "Hack" } },
+				WARN = { alt = { "warn", "Warn", "WARNING", "XXX" } },
+				PERF = { alt = { "perf", "Perf", "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+				NOTE = { alt = { "note", "Note", "INFO" } },
+				TEST = { alt = { "test", "Test", "TESTING", "PASSED", "FAILED" } },
+      },
+    })
   end,
 }

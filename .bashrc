@@ -128,8 +128,9 @@ export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Config for Oh My Posh
- #eval "$(oh-my-posh init bash)"
-eval "$(oh-my-posh init bash --config ~/.config/ohmyposh/multiverse-neon.omp.json)"
+#eval "$(oh-my-posh init bash)"
+#eval "$(oh-my-posh init bash --config ~/.config/ohmyposh/multiverse-neon.omp.json)"
+eval "$(oh-my-posh init bash --config ~/.config/ohmyposh/themes/tiramisu.omp.toml)"
 
 cd Documents/Projects/C/Socrates-C/encrypt
 
@@ -142,3 +143,4 @@ alias cdh='zoxide query -l -s | less'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+

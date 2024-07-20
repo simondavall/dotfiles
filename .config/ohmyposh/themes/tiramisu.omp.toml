@@ -4,20 +4,17 @@ final_space = true
 console_title_template = "{{.UserName}}@{{.HostName}} {{.Shell}} in {{.PWD}}"
 
 [palette]
-light_grey = "#ACB0BE"
-closer = "p:os"
-pastel_pink = "#F4B8E4"
-pastel_lavender = "#BABBF1"
-pastel_blue = "#8CAAEE"
-
-evening_blue = "#29315A"
-node_green = "#5FB157"
-light_bright_green = "#3EC669"
-ice_green = "#63F08C"
-sky_blue = "#43CCEA"
-terracotta = "#C94A16"
+light_grey = "#acb0be"
+pastel_pink = "#f4b8e4"
+evening_blue = "#29315a"
+node_green = "#5fb157"
+light_bright_green = "#3ec669"
+ice_green = "#63f08c"
+sky_blue = "#43ccea"
+terracotta = "#c94a16"
 white = "#f7f7f7"
 black = "#111111"
+orange = "#ff8800"
 
 [[blocks]]
 alignment = "left"

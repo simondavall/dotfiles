@@ -35,13 +35,21 @@ return {
         end,
       },
       mapping = cmp.mapping.preset.insert({
+        ["<Tab>"] = cmp.mapping.confirm({ select = true }), -- use the selected suggestion or first suggestion if none selected
         ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
         ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
         ["<C-e>"] = cmp.mapping.abort(), -- close completion window
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
+
+        ["<C-Space>"] = cmp.mapping(function ()
+          if cmp.visible() then
+            cmp.abort() -- close suggestion list
+          else
+            cmp.complete() -- open suggestion list
+          end
+        end)
       }),
       -- sources for autocompletion
       sources = cmp.config.sources({

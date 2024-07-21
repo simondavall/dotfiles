@@ -132,8 +132,6 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 #eval "$(oh-my-posh init bash --config ~/.config/ohmyposh/multiverse-neon.omp.json)"
 eval "$(oh-my-posh init bash --config ~/.config/ohmyposh/themes/tiramisu.omp.toml)"
 
-cd Documents/Projects/C/Socrates-C/encrypt
-
 eval "$(zoxide init bash)"
 alias cd=z
 alias cdi=zi

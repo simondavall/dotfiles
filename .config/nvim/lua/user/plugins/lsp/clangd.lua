@@ -3,7 +3,6 @@ return {
     "neovim/nvim-lspconfig",
     config = function ()
       require "user.core.lsp.lspconfig"
-      require("user.core.lsp.clangd_lsp")
 
       local base = require("user.core.lsp.lspconfig")
       local on_attach = base.on_attach
@@ -18,13 +17,5 @@ return {
         capabilities = capabilities,
       }
     end,
-  },
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "clangd"
-      }
-    }
   },
 }

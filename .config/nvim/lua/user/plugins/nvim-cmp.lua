@@ -67,5 +67,8 @@ return {
         }),
       },
     })
+
+    require("user.custom.snippets").load()
+
   end,
 }

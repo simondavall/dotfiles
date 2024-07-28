@@ -13,7 +13,7 @@ function M.load()
       t({"", ""}),
       t({"", "int main(void){"}),
       t({"", "\t"}), i(0),
-      t({"", "\tprintf(\"Answer:\");"}),
+      t({"", "\tprintf(\"Answer:\\n\");"}),
       t({"", "\treturn 0;"}),
       t({"", "}"}),
     })

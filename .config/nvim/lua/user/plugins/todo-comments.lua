@@ -27,6 +27,13 @@ return {
 				NOTE = { alt = { "note", "Note", "INFO" } },
 				TEST = { alt = { "test", "Test", "TESTING", "PASSED", "FAILED" } },
       },
+      gui_style = {
+        fg = "BOLD", -- default: NONE
+        bg = "NONE", -- default: BOLD
+      },
+      highlight = {
+        keyword = "fg", -- defualt: wide
+      }
     })
   end,
 }

@@ -46,6 +46,7 @@ alias l='ls -CF'
 alias gst='git status'
 alias gl='git log --oneline --graph'
 alias ga='git add .'
+alias gp='git push'
 
 alias nv='nvim .'
 

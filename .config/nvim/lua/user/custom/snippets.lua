@@ -14,12 +14,13 @@ function M.load()
     s("main_sdv", fmt(
       [[
       #include <stdio.h>
+      #include <stdlib.h>
 
       int main(void){{
-        {}
 
-        printf("Answer\n");
-        return 0;
+        printf("{}\n");
+
+        return EXIT_SUCCESS;
       }}
       ]], {
         i(0)

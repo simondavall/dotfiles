@@ -24,36 +24,38 @@ return {
       },
     })
 
-    mason_lspconfig.setup({
+    mason_lspconfig.setup {
+      automatic_installation = true,
+
       -- list of servers for mason to install
       ensure_installed = {
         "clangd",
-        -- "tsserver",
+        "omnisharp",
         "html",
         "cssls",
-        "tailwindcss",
-        "svelte",
         "lua_ls",
-        "graphql",
-        "emmet_ls",
-        "prismals",
-        "pyright",
 
         -- TODO: need to set up the following languages (need config in lspconfig.lua file)
         --"bashls",
         --"clangd",
         --"csharp_ls",
-        --"onmisharp",
         --"dockerls",
         --"docker_compose_language_service",
+        --"emmet_ls",
         --"golangci_lint_ls",
+        --"graphql",
         --"java_language_server",
+        --"prismals",
+        --"pyright",
         --"rust_analyzer",
         --"sqlls",
+        --"svelte",
+        --"tailwindcss",
         --"taplo",
+        --"tsserver",
         --"zls"
       },
-    })
+    }
 
     mason_tool_installer.setup({
       ensure_installed = {

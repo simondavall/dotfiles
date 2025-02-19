@@ -9,10 +9,28 @@ local fmt = require("luasnip.extras.fmt").fmt
 M = {}
 
 function M.load()
+	luasnip.add_snippets("go", {
+		s(
+			"if_err",
+			fmt(
+				[[
+      if err != nil {{
+        fmt.println(err)
+        return{}
+      }}
+      ]],
+				{
+					i(0),
+				}
+			)
+		),
+	})
 
-  luasnip.add_snippets("c",{
-    s("main_sdv", fmt(
-      [[
+	luasnip.add_snippets("c", {
+		s(
+			"main_sdv",
+			fmt(
+				[[
       #include <stdio.h>
       #include <stdlib.h>
 
@@ -22,11 +40,16 @@ function M.load()
 
         return EXIT_SUCCESS;
       }}
-      ]], {
-        i(0)
-      })),
-    s("main_read", fmt(
-      [[
+      ]],
+				{
+					i(0),
+				}
+			)
+		),
+		s(
+			"main_read",
+			fmt(
+				[[
       #include <stdio.h>
       #define MAX_LEN 20
 
@@ -50,12 +73,13 @@ function M.load()
         str[i] = '\0';
         return i;
       }}
-      ]], {
-        i(0)
-      }))
-    })
-
+      ]],
+				{
+					i(0),
+				}
+			)
+		),
+	})
 end
 
 return M
-

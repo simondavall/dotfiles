@@ -80,7 +80,7 @@ export PATH="$PATH:/home/sdv/.dotnet"
 export PATH="$PATH:/home/sdv/.local/bin"
 export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" 
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PATH="$PATH:/home/sdv/go/bin"
+export PATH="$PATH:/usr/local/go/bin"
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 

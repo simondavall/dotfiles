@@ -1,103 +1,100 @@
-#:schema https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
-version = 2
+console_title_template = '{{.UserName}}@{{.HostName}} {{.Shell}} in {{.PWD}}'
+version = 3
 final_space = true
-console_title_template = "{{.UserName}}@{{.HostName}} {{.Shell}} in {{.PWD}}"
 
 [palette]
-light_grey = "#acb0be"
-pastel_pink = "#f4b8e4"
-evening_blue = "#29315a"
-node_green = "#5fb157"
-light_bright_green = "#3ec669"
-ice_green = "#63f08c"
-sky_blue = "#43ccea"
-terracotta = "#c94a16"
-white = "#f7f7f7"
-black = "#111111"
-orange = "#ff8800"
-
-[[blocks]]
-alignment = "left"
-type = "prompt"
-newline = true
-
-  [[blocks.segments]]
-  background = "p:evening_blue"
-  foreground = "p:pastel_pink"
-  leading_diamond = ""
-  style = "diamond"
-  template = " {{ .Path }}"
-  trailing_diamond = ""
-  type = "path"
-
-    [blocks.segments.properties]
-    style = "full"
-
-  [[blocks.segments]]
-  background = "p:evening_blue"
-  foreground = "p:sky_blue"
-  foreground_templates = [
-  "{{ if or (.Working.Changed) (.Staging.Changed) }}#FF9248{{ end }}",
-  "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#ff4500{{ end }}",
-  "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
-  "{{ if gt .Behind 0 }}#B388FF{{ end }}"
-]
-  leading_diamond = " "
-  style = "diamond"
-  template = " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} "
-  trailing_diamond = ""
-  type = "git"
-
-    [blocks.segments.properties]
-    branch_max_length = 25
-    fetch_stash_count = true
-    fetch_status = true
-    fetch_upstream_icon = true
-
-  [[blocks.segments]]
-  foreground = "p:terracotta"
-  style = "plain"
-  template = "x "
-  type = "status"
-
-[[blocks]]
-alignment = "right"
-type = "prompt"
-
-  [[blocks.segments]]
-  foreground = "p:node_green"
-  background = "transparent"
-  style = "plain"
-  template = "{{.CurrentDate | date .Format}}"
-  type = "time"
-
-    [blocks.segments.properties]
-    time_format = "15:04:05 | Monday"
-
-[[blocks]]
-alignment = "left"
-newline = true
-type = "prompt"
-
-  [[blocks.segments]]
-    type = 'text'
-    style = 'plain'
-    foreground_templates = [
-      "{{if gt .Code 0}}p:terracotta{{end}}",
-      "{{if eq .Code 0}}p:ice_green{{end}}",
-    ]
-    background = 'transparent'
-    template = '❯'
-
-[transient_prompt]
-  foreground_templates = [
-    "{{if gt .Code 0}}p:terracotta{{end}}",
-    "{{if eq .Code 0}}p:ice_green{{end}}",
-  ]
-  background = 'transparent'
-  template = '❯ '
+  black = '#111111'
+  evening_blue = '#29315a'
+  ice_green = '#63f08c'
+  light_bright_green = '#3ec669'
+  light_grey = '#acb0be'
+  node_green = '#5fb157'
+  orange = '#ff8800'
+  pastel_pink = '#f4b8e4'
+  sky_blue = '#43ccea'
+  terracotta = '#c94a16'
+  white = '#f7f7f7'
 
 [secondary_prompt]
+  template = '❯❯ '
   foreground = 'p:ice_green'
   background = 'transparent'
-  template = '❯❯ '
+
+[transient_prompt]
+  template = '❯ '
+  background = 'transparent'
+  foreground_templates = ['{{if gt .Code 0}}p:terracotta{{end}}', '{{if eq .Code 0}}p:ice_green{{end}}']
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    leading_diamond = ''
+    trailing_diamond = ''
+    template = ' {{ .Path }}'
+    foreground = 'p:pastel_pink'
+    background = 'p:evening_blue'
+    type = 'path'
+    style = 'diamond'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      style = 'full'
+
+  [[blocks.segments]]
+    leading_diamond = ' '
+    trailing_diamond = ''
+    template = ' {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} '
+    foreground = 'p:sky_blue'
+    background = 'p:evening_blue'
+    type = 'git'
+    style = 'diamond'
+    foreground_templates = ['{{ if or (.Working.Changed) (.Staging.Changed) }}#FF9248{{ end }}', '{{ if and (gt .Ahead 0) (gt .Behind 0) }}#ff4500{{ end }}', '{{ if gt .Ahead 0 }}#B388FF{{ end }}', '{{ if gt .Behind 0 }}#B388FF{{ end }}']
+
+    [blocks.segments.properties]
+      branch_max_length = 25
+      cache_duration = 'none'
+      fetch_stash_count = true
+      fetch_status = true
+      fetch_upstream_icon = true
+
+  [[blocks.segments]]
+    template = 'x '
+    foreground = 'p:terracotta'
+    type = 'status'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+
+  [[blocks.segments]]
+    template = '{{.CurrentDate | date .Format}}'
+    foreground = 'p:node_green'
+    background = 'transparent'
+    type = 'time'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      time_format = '15:04:05 | Monday'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    template = '❯'
+    background = 'transparent'
+    type = 'text'
+    style = 'plain'
+    foreground_templates = ['{{if gt .Code 0}}p:terracotta{{end}}', '{{if eq .Code 0}}p:ice_green{{end}}']
+
+    [blocks.segments.properties]
+      cache_duration = 'none'

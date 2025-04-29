@@ -129,7 +129,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Config for Oh My Posh
 #eval "$(oh-my-posh init bash)"
-#eval "$(oh-my-posh init bash --config ~/.config/ohmyposh/multiverse-neon.omp.json)"
+#eval "$(oh-my-posh init bash --config ~/.config/ohmyposh/default.toml)"
 eval "$(oh-my-posh init bash --config ~/.config/ohmyposh/themes/tiramisu.omp.toml)"
 
 eval "$(zoxide init bash)"

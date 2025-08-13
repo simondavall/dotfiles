@@ -12,7 +12,7 @@ return {
 				--  require("none-ls.diagnostics.eslint"), -- requires none-ls-extras.nvim
 			},
 			on_attach = function(client, bufnr)
-				if client.supports_method("textDocument/formatting") then
+				if client:supports_method("textDocument/formatting") then
 					vim.api.nvim_clear_autocmds({
 						group = augroup,
 						buffer = bufnr,

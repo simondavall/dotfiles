@@ -51,8 +51,6 @@ opt.timeoutlen = 300 -- time to wait for a mapped sequence to complete (ms) E.g 
 opt.scrolloff = 8 -- number of lines always visible above and below when scrolling
 opt.sidescrolloff = 8 -- number of columns always visible when scrolling
 
-
-
 -- disable some default providers
 vim.g["loaded_perl_provider"] = 0 -- disable perl as a language provider
 vim.g["loaded_ruby_provider"] = 0 -- disable ruby as a language provider

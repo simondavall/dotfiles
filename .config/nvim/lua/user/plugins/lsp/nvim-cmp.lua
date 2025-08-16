@@ -22,6 +22,7 @@ return {
 
     -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
     require("luasnip.loaders.from_vscode").lazy_load()
+    require("user.custom.snippets").load()
 
     cmp.setup({
       completion = {
@@ -36,18 +37,18 @@ return {
         ["<Tab>"] = cmp.mapping.confirm({ select = true }), -- use the selected suggestion or first suggestion if none selected
         ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
         ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-b>"] = cmp.mapping.scroll_docs(-4), -- scroll up documentation
+        ["<C-f>"] = cmp.mapping.scroll_docs(4), -- scroll down documentation
         ["<C-e>"] = cmp.mapping.abort(), -- close completion window
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
 
-        ["<C-Space>"] = cmp.mapping(function ()
+        ["<C-Space>"] = cmp.mapping(function()
           if cmp.visible() then
             cmp.abort() -- close suggestion list
           else
             cmp.complete() -- open suggestion list
           end
-        end)
+        end),
       }),
       -- sources for autocompletion
       sources = cmp.config.sources({
@@ -60,15 +61,12 @@ return {
       -- configure lspkind for vs-code like pictograms in completion menu
       formatting = {
         expandable_indicator = true, -- default :  true
-        fields = { 'abbr', 'kind', 'menu' }, -- default : { 'abbr, 'kind, 'menu'}
+        fields = { "abbr", "kind", "menu" }, -- default : { 'abbr, 'kind, 'menu'}
         format = lspkind.cmp_format({
           maxwidth = 50,
           ellipsis_char = "...",
         }),
       },
     })
-
-    require("user.custom.snippets").load()
-
   end,
 }

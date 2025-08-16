@@ -85,6 +85,10 @@ return {
 				opts.desc = "Go to declaration"
 				keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
 
+        --todo : sdv - check wheter this should be a pop up definition. It seems to me there will only
+        --             be one definition to display.
+        --             Maybe use vim.buf.type_definition, vim.buf.definition, and more.
+        --             Check out what is available after installing omnisharp.
 				opts.desc = "Show LSP definitions"
 				keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
 
@@ -131,7 +135,7 @@ return {
 					{ name = "DiagnosticSignInfo", text = " " },
 				},
 			},
-			virtual_text = true,
+			virtual_lines = true,
 			update_in_insert = false,
 			underline = true,
 			severity_sort = true,

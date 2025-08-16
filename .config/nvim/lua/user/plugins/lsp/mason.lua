@@ -10,8 +10,8 @@ return {
         -- LSP servers (matching your vim.lsp.enable() config)
         "lua-language-server",            -- Lua LSP
         "gopls",                          -- Go LSP
-        "csharp-language-server",         -- C# LSP
-        "omnisharp",                      -- another C# LSP
+        --"csharp-language-server",       -- C# LSP
+        "omnisharp",                      -- C# LSP
         "clangd",                         -- C LSP
         --"typescript-language-server",   -- TypeScript LSP
         --"tailwindcss-language-server",  -- Tailwind CSS LSP

@@ -1,7 +1,7 @@
-require("user.core.mason-path")
-require("user.config.options")
-require("user.config.keymaps")
-require("user.core.lazy")
+require("sdv.core.mason-path")
+require("sdv.config.options")
+require("sdv.config.keymaps")
+require("sdv.core.lazy")
 
 -------------------
 -- CUSTOM MACROS --

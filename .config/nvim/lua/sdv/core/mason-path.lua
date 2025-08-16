@@ -53,11 +53,11 @@ local clean_path_entries = {}
 local seen = {}
 
 for _, entry in ipairs(path_entries) do
-    -- Skip Mason bin entries and duplicates
-    if entry ~= mason_bin and entry ~= "" and not seen[entry] then
-        seen[entry] = true
-        table.insert(clean_path_entries, entry)
-    end
+  -- Skip Mason bin entries and duplicates
+  if entry ~= mason_bin and entry ~= "" and not seen[entry] then
+    seen[entry] = true
+    table.insert(clean_path_entries, entry)
+  end
 end
 
 -- Add Mason bin directory at the beginning
@@ -66,6 +66,6 @@ vim.env.PATH = new_path
 
 -- Verify Mason bin directory exists
 if vim.fn.isdirectory(mason_bin) == 0 then
-    -- Mason not installed yet, create placeholder
-    vim.fn.mkdir(mason_bin, "p")
+  -- Mason not installed yet, create placeholder
+  vim.fn.mkdir(mason_bin, "p")
 end

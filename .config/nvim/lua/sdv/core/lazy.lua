@@ -12,10 +12,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  { import = "user.plugins" },
-  { import = "user.plugins.lsp" }
-},
-{
+  { import = "sdv.plugins" },
+  { import = "sdv.plugins.lsp" },
+}, {
   -- Configure any other settings here. See the documentation for more details.
   rocks = {
     enabled = false,

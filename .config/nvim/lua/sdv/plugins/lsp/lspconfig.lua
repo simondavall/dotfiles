@@ -69,7 +69,21 @@ return {
       end,
     })
 
-    vim.lsp.enable({ "gopls", "lua_ls", "clangd" })
+    vim.lsp.config("html-ls", {
+      capabilities = capabilities,
+      cmd = { "vscode-html-language-server", "--stdio" },
+      filetypes = {
+        "html",
+        "blade",
+        "javascriptreact",
+        "typescriptreact",
+        "svelte",
+      },
+      root_markers = { "index.html", ".git" },
+      init_options = { provideFormatter = true },
+    })
+
+    vim.lsp.enable({ "gopls", "lua_ls", "clangd", "html-ls" })
 
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),

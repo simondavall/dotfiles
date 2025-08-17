@@ -50,6 +50,7 @@ opt.backup = false -- won't create a .bak file when saving a changed file
 opt.timeoutlen = 300 -- time to wait for a mapped sequence to complete (ms) E.g when pressing <leader>sv
 opt.scrolloff = 8 -- number of lines always visible above and below when scrolling
 opt.sidescrolloff = 8 -- number of columns always visible when scrolling
+opt.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- disable some default providers
 vim.g["loaded_perl_provider"] = 0 -- disable perl as a language provider

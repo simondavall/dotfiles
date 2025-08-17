@@ -1,9 +1,11 @@
 return {
 	"nvim-telescope/telescope.nvim",
+  lazy = false,
 	branch = "0.1.x",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    "nvim-telescope/telescope-ui-select.nvim",
 		"nvim-tree/nvim-web-devicons",
 		"folke/todo-comments.nvim",
 	},
@@ -25,6 +27,7 @@ return {
 		})
 
 		telescope.load_extension("fzf")
+    telescope.load_extension("ui-select")
 
 		-- set keymaps
 		local builtin = require("telescope.builtin")

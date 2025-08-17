@@ -13,8 +13,21 @@ return {
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
     local keymap = vim.keymap -- for conciseness
     -- used to enable autocompletion (assign to every lsp server config)
-    local capabilities = cmp_nvim_lsp.default_capabilities()
+    local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
     --local data_path = vim.fn.stdpath("data")
+    local pid = vim.fn.getpid()
+
+    local omnisharp_bin = "/opt/omnisharp-roslyn/OmniSharp"
+    vim.lsp.config("omnisharp", {
+      capabilities = capabilities,
+      cmd = { omnisharp_bin, "--languageserver", "-hostPID", tostring(pid) },
+      filetypes = { "cs", "vb" },
+      settings = {
+        Sdk = {
+          IncludePrereleases = false,
+        },
+      },
+    })
 
     vim.lsp.config("lua_ls", {
       capabilities = capabilities,
@@ -83,7 +96,7 @@ return {
       init_options = { provideFormatter = true },
     })
 
-    vim.lsp.enable({ "gopls", "lua_ls", "clangd", "html-ls" })
+    vim.lsp.enable({ "omnisharp", "gopls", "lua_ls", "clangd", "html-ls" })
 
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),

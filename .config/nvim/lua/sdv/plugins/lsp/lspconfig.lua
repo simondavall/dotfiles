@@ -6,6 +6,7 @@ return {
     "hrsh7th/cmp-nvim-lsp",
     { "antosha417/nvim-lsp-file-operations", config = true },
     { "folke/neodev.nvim", opts = {} },
+    { "Hoffs/omnisharp-extended-lsp.nvim" },
   },
   config = function()
     --local lspconfig = require("lspconfig")
@@ -17,6 +18,9 @@ return {
     --local data_path = vim.fn.stdpath("data")
     local pid = vim.fn.getpid()
 
+    -- not all lsp keybinds work, some show errors relating the textDocument.
+    -- The Hoffs/omnisharp-extended-lsp.nvim dependency perportedly fixes these, but
+    -- I couldn't find a way to get it to work. The below works for code completion.
     local omnisharp_bin = "/opt/omnisharp-roslyn/OmniSharp"
     vim.lsp.config("omnisharp", {
       capabilities = capabilities,

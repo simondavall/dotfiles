@@ -16,22 +16,24 @@ return {
     -- used to enable autocompletion (assign to every lsp server config)
     local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
     --local data_path = vim.fn.stdpath("data")
-    local pid = vim.fn.getpid()
+    --local pid = vim.fn.getpid()
 
     -- not all lsp keybinds work, some show errors relating the textDocument.
     -- The Hoffs/omnisharp-extended-lsp.nvim dependency perportedly fixes these, but
     -- I couldn't find a way to get it to work. The below works for code completion.
-    local omnisharp_bin = "/opt/omnisharp-roslyn/OmniSharp"
-    vim.lsp.config("omnisharp", {
-      capabilities = capabilities,
-      cmd = { omnisharp_bin, "--languageserver", "-hostPID", tostring(pid) },
-      filetypes = { "cs", "vb" },
-      settings = {
-        Sdk = {
-          IncludePrereleases = false,
-        },
-      },
-    })
+    -- local omnisharp_bin = "/opt/omnisharp-roslyn/OmniSharp"
+    -- vim.lsp.config("omnisharp", {
+    --   capabilities = capabilities,
+    --   cmd = { omnisharp_bin, "--languageserver", "-hostPID", tostring(pid) },
+    --   filetypes = { "cs", "vb" },
+    --   settings = {
+    --     Sdk = {
+    --       IncludePrereleases = false,
+    --     },
+    --   },
+    -- })
+
+    vim.lsp.config("roslyn", {})
 
     vim.lsp.config("lua_ls", {
       capabilities = capabilities,
@@ -100,7 +102,7 @@ return {
       init_options = { provideFormatter = true },
     })
 
-    vim.lsp.enable({ "omnisharp", "gopls", "lua_ls", "clangd", "html-ls" })
+    vim.lsp.enable({ "roslyn", "gopls", "lua_ls", "clangd", "html-ls" })
 
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),

@@ -39,6 +39,7 @@ return {
         "markdown",
         "markdown_inline",
         "query",
+        "razor",
         "regex",
         "rust",
         "sql",

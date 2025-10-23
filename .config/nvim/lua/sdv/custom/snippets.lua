@@ -9,6 +9,21 @@ local fmt = require("luasnip.extras.fmt").fmt
 M = {}
 
 function M.load()
+
+  luasnip.add_snippets("javascript", {
+    s(
+      "cl",
+      fmt(
+        [[
+      console.log(`Text: ${{{}}}`);
+        ]],
+        {
+          i(0),
+        }
+      )
+    ),
+  })
+
   luasnip.add_snippets("go", {
     s(
       "if_err",

@@ -43,6 +43,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+alias sd='shutdown now'
+
 alias gst='git status'
 alias gl='git log --oneline --graph'
 alias ga='git add .'
@@ -75,9 +77,10 @@ alias zs="source ~/.zshrc"
 #  fi
 #fi
 
+export DOTNET_ROOT="/home/simon/.dotnet"
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-export PATH="$PATH:/home/sdv/.dotnet"
-export PATH="$PATH:/home/sdv/.local/bin"
+export PATH="$PATH:$DOTNET_ROOT"
+export PATH="$PATH:/home/simon/.local/bin"
 export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" 
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PATH="$PATH:/usr/local/go/bin"

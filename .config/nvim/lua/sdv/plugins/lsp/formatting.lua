@@ -8,7 +8,7 @@ return {
       function()
         require("conform").format({ async = true }, function(err, did_edit)
           if not err and did_edit then
-            vim.notify("Code formatted", vim.log.levels.INFO, { title = "Conform" })
+            vim.notify("Code formatted - sdv", vim.log.levels.INFO, { title = "Conform" })
           end
         end)
       end,
@@ -18,6 +18,9 @@ return {
   },
   opts = {
     formatters_by_ft = {
+      -- CiSharp
+      -- Note: CSharp formatting performed by Roslyn
+      --
       -- Go
       go = { "goimports", "gofmt" },
 

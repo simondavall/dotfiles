@@ -32,7 +32,7 @@ return {
         -- Note: gofmt comes with Go installation, not managed by Mason
         "prettier",
         --"xmlformatter",
-        "csharpier",
+        --"csharpier",
         --"black",
         --"isort",
 
@@ -45,7 +45,7 @@ return {
         -- Additional useful tools
         "delve",        -- Go debugger
         "netcoredbg",   -- DotNet debugger
-        --"shfmt",      -- Shell formatter
+        "shfmt",      -- Shell formatter
         --"shellcheck", -- Shell linter
 
         -- Optional but useful additions

@@ -1,6 +1,32 @@
 #https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/csharp-formatting-options
-
 root = true
+
+# Preprocessor errors and warnings:
+[*.cs]
+# CS9298:#: directives can be only used in file-based programs (-features:FileBasedProgram)
+dotnet_diagnostic.CS9298.severity = none
+
+# IDE errors and warnings:
+[*.cs]
+# Use collection initializers or expressions (IDE0028)
+dotnet_diagnostic.IDE0028.severity = none
+# Add readonly modifier (IDE0044)
+#dotnet_diagnostic.IDE0044.severity = none
+# Use range operator (IDE0057)
+dotnet_diagnostic.IDE0057.severity = none
+# Remove unused parameter (IDE0060)
+#dotnet_diagnostic.IDE0060.severity = none
+# Simplify new expression (IDE0090)
+dotnet_diagnostic.IDE0090.severity = none
+# Use primary constructor (IDE0290)
+dotnet_diagnostic.IDE0290.severity = none
+# Use collection expression for array (IDE0300)
+dotnet_diagnostic.IDE0300.severity = none
+# Use collection expression for fluent (IDE0305)
+dotnet_diagnostic.IDE0305.severity = none
+# Use collection expression for new (IDE0306)
+dotnet_diagnostic.IDE0306.severity = none
+
 #  CSharp formatting rules:
 [*.cs]
 csharp_new_line_before_open_brace = none

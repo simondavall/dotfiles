@@ -20,9 +20,9 @@ return {
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
 
+    require("sdv.custom.snippets").load()
     -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
     require("luasnip.loaders.from_vscode").lazy_load()
-    require("sdv.custom.snippets").load()
 
     cmp.setup({
       completion = {

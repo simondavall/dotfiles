@@ -10,6 +10,21 @@ M = {}
 
 function M.load()
 
+  luasnip.add_snippets("cs", {
+    s(
+      "cw",
+      fmt(
+        [[
+      Console.WriteLine($"{}");
+        ]],
+        {
+          i(0),
+        }
+      )
+    ),
+  })
+
+
   luasnip.add_snippets("javascript", {
     s(
       "cl",

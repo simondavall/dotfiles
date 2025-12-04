@@ -6,7 +6,6 @@ return {
     "hrsh7th/cmp-nvim-lsp",
     { "antosha417/nvim-lsp-file-operations", config = true },
     { "folke/neodev.nvim", opts = {} },
-    { "Hoffs/omnisharp-extended-lsp.nvim" },
   },
   config = function()
     --local lspconfig = require("lspconfig")
@@ -102,7 +101,6 @@ return {
         --todo : sdv - check wheter this should be a pop up definition. It seems to me there will only
         --             be one definition to display.
         --             Maybe use vim.buf.type_definition, vim.buf.definition, and more.
-        --             Check out what is available after installing omnisharp.
         opts.desc = "Show LSP definitions"
         keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
 

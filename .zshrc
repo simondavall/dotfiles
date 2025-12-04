@@ -52,10 +52,6 @@ alias gp='git push'
 
 alias nv='nvim .'
 
-alias dc='clear && dotnet build && dotnet run'
-alias dr='dotnet run'
-alias db='dotnet build && dotnet run'
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -77,9 +73,7 @@ alias zs="source ~/.zshrc"
 #  fi
 #fi
 
-export DOTNET_ROOT="/home/simon/.dotnet"
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-export PATH="$PATH:$DOTNET_ROOT"
 export PATH="$PATH:/home/simon/.local/bin"
 export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" 
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"

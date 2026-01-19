@@ -29,8 +29,11 @@ dotnet_diagnostic.IDE0306.severity = none
 
 #  CSharp formatting rules:
 [*.cs]
-csharp_new_line_before_open_brace = none
+csharp_new_line_before_open_brace = types, methods
 csharp_new_line_before_else = false
 csharp_new_line_before_catch = false
 csharp_new_line_before_finally = false
 
+# these are the options for "new line before open brace"
+#  accessors, anonymous_methods, anonymous_types, control_blocks, events, indexers,
+#  lambdas, local_functions, methods, object_collection_array_initializers, properties, types

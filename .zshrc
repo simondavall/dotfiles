@@ -51,6 +51,7 @@ alias ga='git add .'
 alias gp='git push'
 
 alias nv='nvim .'
+alias cs='csharprepl'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert

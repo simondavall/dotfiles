@@ -132,6 +132,9 @@ return {
           --Expected values: true, false
           dotnet_enable_references_code_lens = true,
         },
+        ["csharp|logging"] = {
+          logLevel = "Error", -- Only errors will be logged
+        },
       },
     })
     vim.lsp.enable("roslyn")

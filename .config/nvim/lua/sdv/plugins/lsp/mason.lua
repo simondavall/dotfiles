@@ -6,6 +6,7 @@ return {
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     build = ":MasonUpdate",
     opts = {
+      log_level = vim.log.levels.ERROR, -- Only errors are logged
       registries = {
         "github:mason-org/mason-registry",
         "github:Crashdummyy/mason-registry"
@@ -19,7 +20,7 @@ return {
         "roslyn",                         -- C# LSP
         "rzls",                           -- Razor LSP
         "clangd",                         -- C LSP
-        --"typescript-language-server",   -- TypeScript LSP
+        "typescript-language-server",   -- TypeScript LSP
         --"tailwindcss-language-server",  -- Tailwind CSS LSP
         "html-lsp",                       -- HTML LSP
         "css-lsp",                        -- CSS LSP
@@ -30,7 +31,7 @@ return {
         "stylua",
         "goimports",
         -- Note: gofmt comes with Go installation, not managed by Mason
-        "prettier",
+        --"prettier",
         --"xmlformatter",
         --"csharpier",
         --"black",

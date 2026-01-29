@@ -6,6 +6,7 @@ return {
     "hrsh7th/cmp-nvim-lsp",
     { "antosha417/nvim-lsp-file-operations", config = true },
     { "folke/neodev.nvim", opts = {} },
+    { "b0o/schemastore.nvim" },
   },
   config = function()
     --local lspconfig = require("lspconfig")
@@ -82,7 +83,94 @@ return {
       init_options = { provideFormatter = true },
     })
 
-    vim.lsp.enable({ "roslyn", "gopls", "lua_ls", "clangd", "html-ls" })
+    vim.lsp.config("ruff", {
+      init_options = {
+        settings = {
+          logLevel = "error",
+          -- Disable Ruff's linting if using pyright for diagnostics
+          lint = { enable = false },
+          -- Optional: customize formatting
+          format = { lineLength = 88 },
+        },
+      },
+      -- Disable hover in favor of pyright
+      on_attach = function(client, _)
+        client.server_capabilities.hoverProvider = false
+      end,
+    })
+
+    vim.lsp.config("pyright", {
+      settings = {
+        pyright = {
+          disableOrganizeImports = true, -- Let Ruff handle imports
+        },
+        python = {
+          analysis = {
+            typeCheckingMode = "basic",
+            diagnosticMode = "openFilesOnly",
+          },
+        },
+      },
+    })
+
+    vim.lsp.config("jsonls", {
+      capabilities = capabilities,
+      filetypes = { "json" },
+      settings = {
+        json = {
+          format = { enable = true },
+          validate = { enable = true },
+        },
+      },
+      -- Optional: Lazy-load schemastore for JSON schema validation
+      before_init = function(_, new_config)
+        new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+        vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+      end,
+    })
+
+    vim.lsp.config("tsserver", {
+      cmd = { "typescript-language-server", "--stdio" },
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+      },
+      root_dir = vim.fs.root(0, { "package.json", "tsconfig.json", "jsconfig.json", ".git" }),
+      -- Optional: pass capabilities and on_attach if defined
+      capabilities = capabilities,
+      -- on_attach = on_attach,
+      init_options = {
+        preferences = {
+          disableSuggestions = false,
+        },
+      },
+      handlers = {
+        ["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+          if result.diagnostics then
+            result.diagnostics = vim.tbl_filter(function(diag)
+              return diag.code ~= 80001
+            end, result.diagnostics)
+          end
+          vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+        end,
+      },
+    })
+
+    vim.lsp.enable({
+      "roslyn",
+      "gopls",
+      "lua_ls",
+      "clangd",
+      "html-ls",
+      "jsonls",
+      "ruff",
+      "pyright",
+      "tsserver",
+    })
 
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),

@@ -8,7 +8,7 @@ return {
       function()
         require("conform").format({ async = true }, function(err, did_edit)
           if not err and did_edit then
-            vim.notify("Code formatted - sdv", vim.log.levels.INFO, { title = "Conform" })
+            vim.notify("Code formatted", vim.log.levels.INFO, { title = "Conform" })
           end
         end)
       end,
@@ -32,7 +32,7 @@ return {
       typescript = { "prettier" },
       javascriptreact = { "prettier" },
       typescriptreact = { "prettier" },
-      json = { "prettier" },
+      json = { "jq" },
       jsonc = { "prettier" },
       yaml = { "prettier" },
       markdown = { "prettier" },
@@ -41,7 +41,7 @@ return {
       scss = { "prettier" },
 
       -- Python
-      --python = { "isort", "black" },
+      python = { "isort", "black" },
 
       -- PHP/Laravel
       --php = { "pint" },

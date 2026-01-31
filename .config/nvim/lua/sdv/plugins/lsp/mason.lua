@@ -18,7 +18,7 @@ return {
         --"csharp-language-server",       -- C# LSP
         --"omnisharp",                      -- C# LSP
         "roslyn",                         -- C# LSP
-        "rzls",                           -- Razor LSP
+        --"rzls",                           -- Razor LSP
         "clangd",                         -- C LSP
         "typescript-language-server",   -- TypeScript LSP
         --"tailwindcss-language-server",  -- Tailwind CSS LSP

@@ -9,7 +9,7 @@ return {
     { "b0o/schemastore.nvim" },
   },
   config = function()
-    --local lspconfig = require("lspconfig")
+    local lspconfig = require("lspconfig")
     --local mason_lspconfig = require("mason-lspconfig")
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
     local keymap = vim.keymap -- for conciseness
@@ -60,14 +60,36 @@ return {
 
     vim.lsp.config("clangd", {
       capabilities = capabilities,
-      cmd = { "clangd", "--background-index" },
-      root_markers = { "compile_commands.json", "compile_flags.txt" },
-      filetypes = { "c", "cpp" },
+      -- cmd = { "clangd", "--background-index" },
+      cmd = {
+        "clangd",
+        "--background-index",
+        "--clang-tidy",
+        "--header-insertion=iwyu",
+        "--completion-style=detailed",
+        "--function-arg-placeholders=true",
+        "--fallback-style=llvm",
+        "--log=error", -- 'info', ' verbose', 'public'
+        "--query-driver=/usr/bin/**/clang-*,/bin/clang,/bin/clang++,/usr/bin/gcc,/usr/bin/g++",
+      },
+      root_markers = { "compile_commands.json", "compile_flags.txt", "makefile", ".git" },
+      filetypes = { "c", "cpp", "cuda", "objc", "objcpp" },
+      init_options = {
+        usePlaceholders = true,
+        completeUnimported = true,
+        clangdFileStatus = true,
+      },
       on_attach = function(client, _)
         client.server_capabilities.signatureHelpProvider = false
         -- on_attach(client, bufnr)
       end,
-    })
+      settings = {
+        ["clangd"] = {
+          fallbackFlags = { "--std=c11" }, -- or '--std=c23' for latest C standard
+          compilationDatabasePath = "build", -- if using a build directory
+        },
+      },
+     })
 
     vim.lsp.config("html-ls", {
       capabilities = capabilities,

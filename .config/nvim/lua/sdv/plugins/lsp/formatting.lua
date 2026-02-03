@@ -46,6 +46,9 @@ return {
       -- PHP/Laravel
       --php = { "pint" },
 
+      -- Database
+      sql = { "sql-formatter" },
+
       -- Shell
       sh = { "shfmt" },
       bash = { "shfmt" },
@@ -57,6 +60,13 @@ return {
       -- markdown = { "markdownlint" },
       -- yaml = { "yamllint" },
       -- toml = { "taplo" },
+    },
+    formatters = {
+      ["sql-formatter"] = {
+        command = "sql-formatter",
+        args = { "-l", "sql" },
+        stdin = true,
+      },
     },
     default_format_opts = {
       lsp_format = "fallback",

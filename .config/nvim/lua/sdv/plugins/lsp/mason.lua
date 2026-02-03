@@ -36,6 +36,7 @@ return {
         --"csharpier",
         --"black",
         --"isort",
+        "sql-formatter",
 
         -- Linters and diagnostics
         "golangci-lint",

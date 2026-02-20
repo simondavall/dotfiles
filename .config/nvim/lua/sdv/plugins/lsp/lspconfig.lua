@@ -39,6 +39,10 @@ return {
           completion = {
             callSnippet = "Replace",
           },
+          workspace = {
+            library = vim.api.nvim_get_runtime_file("", true),
+            checkThirdParty = false,
+          },
         },
       },
     })
@@ -101,6 +105,12 @@ return {
         "typescriptreact",
         "svelte",
       },
+      on_attach = function(client, bufnr)
+        local name = vim.api.nvim_buf_get_name(bufnr)
+        if name:match("__virtual") then
+          client.stop()
+        end
+      end,
       root_markers = { "index.html", ".git" },
       init_options = { provideFormatter = true },
     })
@@ -171,19 +181,18 @@ return {
         },
       },
       handlers = {
-        ["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+        ["textDocument/publishDiagnostics"] = function(_, result, ctx)
           if result.diagnostics then
             result.diagnostics = vim.tbl_filter(function(diag)
               return diag.code ~= 80001
             end, result.diagnostics)
           end
-          vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+          vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx)
         end,
       },
     })
 
     vim.lsp.enable({
-      "roslyn",
       "gopls",
       "lua_ls",
       "clangd",
@@ -208,9 +217,6 @@ return {
         opts.desc = "Go to declaration"
         keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
 
-        --todo : sdv - check wheter this should be a pop up definition. It seems to me there will only
-        --             be one definition to display.
-        --             Maybe use vim.buf.type_definition, vim.buf.definition, and more.
         opts.desc = "Show LSP definitions"
         keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
 
@@ -233,10 +239,10 @@ return {
         -- keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
 
         opts.desc = "Go to previous diagnostic"
-        keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+        keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts) -- jump to previous diagnostic in buffer
 
         opts.desc = "Go to next diagnostic"
-        keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+        keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts) -- jump to next diagnostic in buffer
 
         opts.desc = "Show documentation for what is under cursor"
         keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor

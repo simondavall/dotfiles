@@ -80,6 +80,10 @@ export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PATH="$PATH:/usr/local/go/bin"
 
+# Go setup
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
+
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Config for Oh My Posh

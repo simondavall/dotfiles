@@ -30,47 +30,46 @@ return {
       dap.configurations.cs = {
         {
           type = "coreclr",
-          name = "launch - netcoredbg",
+          name = "Launch",
           request = "launch",
           program = function()
+            vim.cmd("silent !dotnet build --no-restore | redraw")
             return require("dap-dll-autopicker").build_dll_path()
           end,
           -- justMyCode = false,
           -- stopAtEntry = false,
-          -- -- program = function()
-          -- --   -- todo: request input from ui
-          -- --   return "/path/to/your.dll"
-          -- -- end,
           env = {
             ASPNETCORE_ENVIRONMENT = function()
-              -- todo: request input from ui
               return "Development"
             end,
             ASPNETCORE_URLS = function()
-              -- todo: request input from ui
+              -- todo-sdv: hard coding the local uri is awkward. Look at ways of making this more flexible.
               return "https://localhost:7069"
             end,
           },
-          -- cwd = function()
-          --   -- todo: request input from ui
-          --   return vim.fn.getcwd()
-          -- end,
         },
       }
-
-      vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
+      -- Configure debug visuals
+      vim.fn.sign_define("DapBreakpoint", { text = "🟤", texthl = "DiagnosticError" })
+      vim.fn.sign_define("DapBreakpointCondition", { text = "🟡", texthl = "DiagnosticWarn" })
+      vim.fn.sign_define("DapBreakpointRejected", { text = "⛔", texthl = "DiagnosticInfo" })
+      vim.fn.sign_define("DapStopped", { text = "👉", texthl = "Visual", linehl = "Visual" })
 
       local map = vim.keymap.set
-
       map("n", "<F5>", dap.continue, { noremap = true, silent = true, desc = "Run in debug mode" })
       map("n", "<F9>", dap.toggle_breakpoint, { noremap = true, silent = true, desc = "Toggle breakpoint" })
       map("n", "<F10>", dap.step_over, { noremap = true, silent = true, desc = "Step over" })
-      map("n", "<F11>", dap.step_into, { noremap = true, silent = true, desc = "Step into" })
       map("n", "<F8>", dap.step_out, { noremap = true, silent = true, desc = "Step out" })
+      map("n", "<F11>", dap.step_into, { noremap = true, silent = true, desc = "Step into" })
+      map("n", "<F12>", dap.step_back, { noremap = true, silent = true, desc = "Step back" })
       map("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
       map("n", "<leader>dc", dap.clear_breakpoints, { desc = "Clear all breakpoints" })
-      map("n", "<leader>dr", dap.repl.open, { noremap = true, silent = true, desc = "Open REPL" })
-      -- todo: sdv find out what run last does.
+      map("n", "<leader>dro", dap.repl.open, { noremap = true, silent = true, desc = "Open REPL" })
+      map("n", "<leader>drc", dap.repl.close, { noremap = true, silent = true, desc = "Open REPL" })
+      map("n", "<leader>dx", dap.terminate, { desc = "Terminates the debug session" })
+      --map("n", "<leader>dx", dap.disconnect, { desc = "Disconect from the debug session" }) -- used if attaached to running process
+
+      -- todo-sdv: find out what run last does.
       map("n", "<leader>dl", dap.run_last, { noremap = true, silent = true, desc = "Run last ???" })
 
       map(
@@ -79,8 +78,6 @@ return {
         "<Cmd>lua require('neotest').run.run({strategy = 'dap'})<CR>",
         { noremap = true, silent = true, desc = "Debug nearest test" }
       )
-      vim.keymap.set("n", "<leader>dX", dap.terminate, { desc = "Terminates the debug session" })
-      vim.keymap.set("n", "<leader>dx", dap.disconnect, { desc = "Disconect from the debug session" })
 
       local dapui = require("dapui")
       dapui.setup({
@@ -106,19 +103,11 @@ return {
                 id = "scopes",
                 size = 0.5, -- Can be float or integer > 1
               },
-              --{ id = "watches", size = 0.33 },
               { id = "repl", size = 0.5 },
             },
-            size = 40,
-            position = "right", -- Can be "left" or "right"
+            size = 20,
+            position = "bottom",
           },
-          -- {
-          -- 	elements = {
-          -- 		"console",
-          -- 	},
-          -- 	size = 12,
-          -- 	position = "bottom", -- Can be "bottom" or "top"
-          -- },
         },
         floating = {
           max_height = nil,
@@ -129,7 +118,7 @@ return {
           },
         },
         controls = {
-          enabled = vim.fn.exists("+winbar") == 1,
+          enabled = false, -- vim.fn.exists("+winbar") == 1,
           element = "repl",
           icons = {
             pause = "",
@@ -149,15 +138,22 @@ return {
           indent = 1,
         },
       })
-
-      dap.listeners.before.attach.dapui_config = function()
+      -- Hover over variable to show value
+      vim.keymap.set({ "n", "v" }, "<Leader>dh", function()
+        dapui.eval()
+      end, { desc = "Hover variable" })
+      -- vim.api.nvim_create_augroup("DapHover", { clear = true })
+      -- vim.api.nvim_create_autocmd("CursorHold", {
+      --   group = "DapHover",
+      --   callback = function()
+      --     if dap.session() then
+      --       dapui.eval()
+      --     end
+      --   end,
+      -- })
+      dap.listeners.after.event_initialized.ddapui_config = function()
         dapui.open()
       end
-      dap.listeners.before.launch.dapui_config = function()
-        dapui.open()
-      end
-      -- The following line was seeb in ramboe's setup vid. Prob not needed unless open issues.
-      --dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
       dap.listeners.before.event_terminated.dapui_config = function()
         dapui.close()
       end

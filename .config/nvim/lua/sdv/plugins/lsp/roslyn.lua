@@ -55,13 +55,13 @@ return {
           --Show hints for lambda parameter types.
           csharp_enable_inlay_hints_for_lambda_parameter_types = true,
           --Display inline type hints.
-          csharp_enable_inlay_hints_for_types = true,
+          csharp_enable_inlay_hints_for_types = false,
           --Show hints for indexers.
           dotnet_enable_inlay_hints_for_indexer_parameters = true,
           --Show hints for literals.
           dotnet_enable_inlay_hints_for_literal_parameters = true,
           --Show hints for 'new' expressions.
-          dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+          dotnet_enable_inlay_hints_for_object_creation_parameters = false,
           --Show hints for everything else.
           dotnet_enable_inlay_hints_for_other_parameters = true,
           --Display inline parameter name hints.

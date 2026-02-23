@@ -5,10 +5,14 @@ return {
       "mfussenegger/nvim-dap",
       "nvim-neotest/nvim-nio",
       "leoluz/nvim-dap-go",
+      "Weissle/persistent-breakpoints.nvim",
     },
     config = function()
       local dap = require("dap")
 
+      require("persistent-breakpoints").setup({
+        load_breakpoints_event = { "BufReadPost" },
+      })
       require("dap-go").setup()
       require("neotest").setup({
         adapters = {
@@ -54,30 +58,31 @@ return {
       vim.fn.sign_define("DapBreakpointCondition", { text = "🟡", texthl = "DiagnosticWarn" })
       vim.fn.sign_define("DapBreakpointRejected", { text = "⛔", texthl = "DiagnosticInfo" })
       vim.fn.sign_define("DapStopped", { text = "👉", texthl = "Visual", linehl = "Visual" })
+      vim.fn.sign_define("DapLogPoint", { text = "💬", texthl = "DiagnosticInfo" })
 
+      local pdap = require("persistent-breakpoints.api")
       local map = vim.keymap.set
       map("n", "<F5>", dap.continue, { noremap = true, silent = true, desc = "Run in debug mode" })
-      map("n", "<F9>", dap.toggle_breakpoint, { noremap = true, silent = true, desc = "Toggle breakpoint" })
-      map("n", "<F10>", dap.step_over, { noremap = true, silent = true, desc = "Step over" })
       map("n", "<F8>", dap.step_out, { noremap = true, silent = true, desc = "Step out" })
+      map("n", "<F9>", pdap.toggle_breakpoint, { noremap = true, silent = true, desc = "Toggle breakpoint" })
+      map("n", "<F10>", dap.step_over, { noremap = true, silent = true, desc = "Step over" })
       map("n", "<F11>", dap.step_into, { noremap = true, silent = true, desc = "Step into" })
       map("n", "<F12>", dap.step_back, { noremap = true, silent = true, desc = "Step back" })
-      map("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
-      map("n", "<leader>dc", dap.clear_breakpoints, { desc = "Clear all breakpoints" })
+
+      map("n", "<leader>db", pdap.toggle_breakpoint, { desc = "Toggle breakpoint" })
+      map("n", "<leader>dq", pdap.set_conditional_breakpoint, { desc = "Set conditional breakpoint" })
+      map("n", "<leader>dc", pdap.clear_all_breakpoints, { desc = "Clear all breakpoints" })
+      -- map("n", "<leader>dl", pdap.set_log_point, { desc = "Set log point" })
+
       map("n", "<leader>dro", dap.repl.open, { noremap = true, silent = true, desc = "Open REPL" })
       map("n", "<leader>drc", dap.repl.close, { noremap = true, silent = true, desc = "Open REPL" })
+
       map("n", "<leader>dx", dap.terminate, { desc = "Terminates the debug session" })
       --map("n", "<leader>dx", dap.disconnect, { desc = "Disconect from the debug session" }) -- used if attaached to running process
 
-      -- todo-sdv: find out what run last does.
-      map("n", "<leader>dl", dap.run_last, { noremap = true, silent = true, desc = "Run last ???" })
-
-      map(
-        "n",
-        "<leader>dt",
-        "<Cmd>lua require('neotest').run.run({strategy = 'dap'})<CR>",
-        { noremap = true, silent = true, desc = "Debug nearest test" }
-      )
+      map("n", "<leader>dl", dap.run_last, { noremap = true, silent = true, desc = "Run last debug session" }) -- remembers previously used debug config settings
+      local run_test = "<Cmd>lua require('neotest').run.run({strategy = 'dap'})<CR>"
+      map("n", "<leader>dt", run_test, { noremap = true, silent = true, desc = "Debug nearest test" })
 
       local dapui = require("dapui")
       dapui.setup({
@@ -99,10 +104,7 @@ return {
             -- You can change the order of elements in the sidebar
             elements = {
               -- Provide IDs as strings or tables with "id" and "size" keys
-              {
-                id = "scopes",
-                size = 0.5, -- Can be float or integer > 1
-              },
+              { id = "scopes", size = 0.5 },
               { id = "repl", size = 0.5 },
             },
             size = 20,

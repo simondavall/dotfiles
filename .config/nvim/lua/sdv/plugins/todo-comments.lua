@@ -18,9 +18,10 @@ return {
 
     todo_comments.setup({
       keywords = {
-        FIX = {	alt = { "fix", "bug", "issue", "FIXME", "BUG", "FIXIT", "ISSUE" } },
+        REMOVE = { icon = " ", color = "warning", alt = { "remove-sdv", "no-checkin" } },
+        FIX = {	alt = { "fix", "bug", "issue", "FIXME", "BUG", "FIXIT", "ISSUE", "fix-sdv", "bug-sdv" } },
         -- todo: sdv Find some improved icons for this list
-        TODO = { alt = { "todo", "Todo" } },
+        TODO = { alt = { "todo", "todo-sdv" } },
 				HACK = { alt = { "hack", "Hack" } },
 				WARN = { alt = { "warn", "Warn", "WARNING", "XXX" } },
 				PERF = { alt = { "perf", "Perf", "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
@@ -31,6 +32,7 @@ return {
         fg = "BOLD", -- default: NONE
         bg = "NONE", -- default: BOLD
       },
+      merge_keywords = true,
       highlight = {
         keyword = "fg", -- defualt: wide
       }

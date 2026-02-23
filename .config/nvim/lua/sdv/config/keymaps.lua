@@ -87,7 +87,7 @@ keymap.set({ "v", "n", "s" }, "<C-s>a", ":wa<CR><ESC>", { desc = "Save all files
 keymap.set({ "i" }, "<C-s>a", "<ESC>:wa<CR>", { desc = "Save all files" })
 
 -- quitting nvim
-keymap.set({ "n", "v" }, "<leader>q", ":q", { desc = "Quit nvim" })
-keymap.set({ "n", "v" }, "<leader>qa", ":qa", { desc = "Quit all nvim" })
-keymap.set({ "n", "v" }, "<leader>q!", ":q!", { desc = "Quit nvim without saving!" })
-keymap.set({ "n", "v" }, "<leader>qa!", ":qa!", { desc = "Quit all nvim without saving!" })
+-- keymap.set({ "n", "v" }, "<leader>q", ":q", { desc = "Quit nvim" })
+-- keymap.set({ "n", "v" }, "<leader>qa", ":qa", { desc = "Quit all nvim" })
+-- keymap.set({ "n", "v" }, "<leader>q!", ":q!", { desc = "Quit nvim without saving!" })
+-- keymap.set({ "n", "v" }, "<leader>qa!", ":qa!", { desc = "Quit all nvim without saving!" })

@@ -1,12 +1,20 @@
+# shellcheck shell=bash
+
 # To run the install program again type:
 #   autoload -Uz zsh-newuser-install
 #   zsh-newuser-install -f
 # Lines configured by zsh-newuser-install
+# shellcheck disable=SC2034
 HISTFILE=~/.histfile
 HISTSIZE=5000
 SAVEHIST=5000
+
 bindkey -e
 # End of lines configured by zsh-newuser-install
+
+# Enable Zsh completion system
+autoload -Uz compinit
+compinit
 
 setopt append_history          # append to history file
 setopt hist_ignore_space       # don't record an event starting with a space
@@ -25,7 +33,7 @@ fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  test -r ~/.dircolors && (eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)")
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
@@ -49,6 +57,7 @@ alias gst='git status'
 alias gl='git log --oneline --graph'
 alias ga='git add .'
 alias gp='git push'
+alias gd='git diff'
 
 alias nv='nvim .'
 alias cs='csharprepl'
@@ -60,35 +69,23 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias zv="nvim ~/.zshrc"
 alias zs="source ~/.zshrc"
 
-## TODO This following section did not transfer from bash. 
-## shopt is not known to zsh
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-#if ! shopt -oq posix; then
-#  if [ -f /usr/share/bash-completion/bash_completion ]; then
-#    . /usr/share/bash-completion/bash_completion
-#  elif [ -f /etc/bash_completion ]; then
-#    . /etc/bash_completion
-#  fi
-#fi
-
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-export PATH="$PATH:/home/simon/.local/bin"
-export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" 
-export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PATH="$PATH:/usr/local/go/bin"
 
 # Go setup
 export GOPATH="$HOME/go"
-export PATH="$PATH:$GOPATH/bin"
-
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+typeset -U path PATH  # remove duplicates
+path+=(
+  /opt/nvim-linux-x86_64/bin
+  /home/simon/.local/bin
+  /usr/local/go/bin
+  "$GOHOME/bin"
+)
+
+export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" 
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+
 # Config for Oh My Posh
-#eval "$(oh-my-posh init zsh)"
-#eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/multiverse-neon.omp.json)"
 eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/themes/tiramisu.omp.toml)"
 
 eval "$(zoxide init zsh)"
@@ -98,5 +95,10 @@ alias cdh='zoxide query -l -s | less'
 
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# shellcheck disable=SC1091
+nvm() {
+  unset -f nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  nvm "$@"
+}
+

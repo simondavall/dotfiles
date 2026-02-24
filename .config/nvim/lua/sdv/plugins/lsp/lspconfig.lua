@@ -34,7 +34,7 @@ return {
         Lua = {
           -- make the language server recognize "vim" global
           diagnostics = {
-            globals = { "vim" },
+            globals = { "vim", "globals", "max_line_length", "ignore" },
           },
           completion = {
             callSnippet = "Replace",
@@ -55,8 +55,16 @@ return {
         gopls = {
           completeUnimported = true,
           usePlaceholders = true,
+          staticcheck = true,
           analyses = {
             unusedparams = true,
+            nilness = true,
+            unusedwrite = true,
+          },
+          hints = {
+            assignVariableTypes = true,
+            parameterNames = true,
+            compositeLiteralFields = true,
           },
         },
       },
@@ -206,49 +214,50 @@ return {
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),
       callback = function(ev)
-        -- Buffer local mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = { buffer = ev.buf, silent = true }
+        local telescope = require("telescope.builtin")
 
-        -- set keybinds
-        opts.desc = "Show LSP references"
-        keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+        opts.desc = "Displays all references (usages) of a symbol across the current project/workspace."
+        keymap.set("n", "gR", telescope.lsp_references, opts)
 
         opts.desc = "Go to declaration"
-        keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+        keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 
-        opts.desc = "Show LSP definitions"
-        keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+        opts.desc = "Show the definition(s) of the word under the cursor"
+        keymap.set("n", "gd", telescope.lsp_definitions, opts)
 
-        opts.desc = "Show LSP implementations"
-        keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+        opts.desc = "Show the implementation(s) of the word under the cursor"
+        keymap.set("n", "gi", telescope.lsp_implementations, opts)
 
-        opts.desc = "Show LSP type definitions"
-        keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
-
-        opts.desc = "See available code actions"
-        keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
-
-        opts.desc = "Smart rename"
-        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
-
-        -- opts.desc = "Show buffer diagnostics"
-        -- keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
-        --
-        -- opts.desc = "Show line diagnostics"
-        -- keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
-
-        opts.desc = "Go to previous diagnostic"
-        keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts) -- jump to previous diagnostic in buffer
-
-        opts.desc = "Go to next diagnostic"
-        keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts) -- jump to next diagnostic in buffer
+        opts.desc = "Show the definition(s) of the type of the word under the cursor"
+        keymap.set("n", "gt", telescope.lsp_type_definitions, opts)
 
         opts.desc = "Show documentation for what is under cursor"
-        keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+        keymap.set("n", "gk", vim.lsp.buf.hover, opts)
+
+        opts.desc = "See available code actions for the word under the cursor"
+        keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+
+        opts.desc = "Smart rename"
+        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
         opts.desc = "Restart LSP"
-        keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+        keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
+
+        opts.desc = "Lists Diagnostics for all open buffers."
+        keymap.set("n", "<leader>da", telescope.diagnostics, opts)
+
+        opts.desc = "Lists Diagnostics for current buffer."
+        keymap.set("n", "<leader>dd", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+
+        opts.desc = "Show line diagnostics"
+        keymap.set("n", "<leader>dh", vim.diagnostic.open_float, opts)
+
+        opts.desc = "Go to previous diagnostic"
+        keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+
+        opts.desc = "Go to next diagnostic"
+        keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
       end,
     })
 
@@ -263,7 +272,7 @@ return {
           { name = "DiagnosticSignInfo", text = " " },
         },
       },
-      virtual_lines = true,
+      virtual_lines = false,
       update_in_insert = false,
       underline = true,
       severity_sort = true,

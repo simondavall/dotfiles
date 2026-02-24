@@ -75,7 +75,7 @@ return {
         },
         ["csharp|code_lens"] = {
           --Enable code lens references.
-          dotnet_enable_references_code_lens = true,
+          dotnet_enable_references_code_lens = false,
         },
         ["csharp|logging"] = {
           logLevel = "Error", -- Only errors will be logged
@@ -89,6 +89,8 @@ return {
         if not client or client.name ~= "roslyn" then
           return
         end
+
+        -- vim.lsp.codelens.refresh()
 
         local bufnr = args.buf
         if vim.bo[bufnr].filetype == "razor" then

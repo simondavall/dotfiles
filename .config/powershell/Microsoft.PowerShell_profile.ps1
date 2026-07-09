@@ -1,3 +1,10 @@
+# Setup
+
+# Open 'real' powershell profile at C:\Users\simon\Documents\PowerShell\Microsoft.PowerShell_profile.ps1
+# and add the single line:
+# . "C:\dotfiles\.config\powershell\Microsoft.PowerShell_profile.ps1"
+# to the file. This will pickup the version controlled content.
+
 # Modules
 
 Import-Module posh-git

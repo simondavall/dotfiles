@@ -33,7 +33,7 @@ final_space = true
   [[blocks.segments]]
     leading_diamond = ''
     trailing_diamond = ''
-    template = ' {{ .Path }}'
+    template = ' {{ if .Segments.Git.Dir }}{{ base .Segments.Git.Dir }}{{ if .Segments.Git.RelativeDir }}/{{ .Segments.Git.RelativeDir }}{{ end }}{{ else }}{{ .Path }}{{ end }}'
     foreground = 'p:pastel_pink'
     background = 'p:evening_blue'
     type = 'path'
